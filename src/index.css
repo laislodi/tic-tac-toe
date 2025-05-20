@@ -8,7 +8,7 @@ html {
   font-family: 'Roboto Slab', sans-serif;
   line-height: 1.5;
 
-  color: #ebe7ef;
+  color: #00183f;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -26,7 +26,7 @@ body {
     url('bg-pattern-dark.png');
   background-repeat: repeat;
   background-size: 100% 100%, 30% 30%, 100% 100%;
-  min-height: 110rem;
+  min-height: 100vh;
 }
 
 header {
@@ -38,6 +38,26 @@ header img {
   object-fit: contain;
   margin: 3rem auto 1rem auto;
   filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.4));
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1300px) {
+  main {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+  }
+  #log {
+    position: absolute;
+    left: calc(100vw/4 - 15rem);
+  }
+  #game-container {
+    position: relative;
+  }
 }
 
 h1 {
@@ -52,7 +72,7 @@ h1 {
   margin: 3rem auto;
   padding: 2rem;
   border-radius: 6px;
-  background: linear-gradient(rgb(108, 59, 193), rgb(145, 78, 171));
+  background: linear-gradient(rgb(208, 181, 255), rgb(130, 83, 149));
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   position: relative;
 }
@@ -67,6 +87,11 @@ h1 {
   gap: 2rem;
 }
 
+.player {
+  display: flex;
+  align-items: center;
+}
+
 #players li {
   display: flex;
   align-items: center;
@@ -75,20 +100,35 @@ h1 {
 }
 
 #players.highlight-player li.active {
-  border-color: #a35af6;
+  border-color: rgb(16, 3, 39);
   animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    border-color: #a35af6;
+    box-shadow: 0 0 0 0 rgb(16, 3, 39, 0.4);
+  }
+  50% {
+    border-color: #8431f8;
+    box-shadow: 0 0 0 0.5rem rgba(248, 165, 49, 0);
+  }
+  100% {
+    border-color: #a35af6;
+    box-shadow: 0 0 0 0 rgb(16, 3, 39, 0);
+  }
 }
 
 #players.highlight-player li.active .player-name,
 #players.highlight-player li.active .player-symbol {
-  color: #ffffff;
+  color: rgb(102, 65, 168);
 }
 
 #players button {
   width: 3rem;
   border: none;
   background: none;
-  color: #f4f4b7;
+  color: rgb(50, 0, 54);
   font-size: 0.9rem;
   cursor: pointer;
   transition: color 0.2s;
@@ -97,7 +137,7 @@ h1 {
 }
 
 #players button:hover {
-  color: #b28cde;
+  color: rgb(89, 55, 148);
 }
 
 .player {
@@ -110,8 +150,8 @@ h1 {
 .player-name {
   display: inline-block;
   width: 10rem;
-  font-size: 1rem;
-  color: #b9bbe9;
+  font-size: 1.5rem;
+  color: #56575b;
   text-transform: uppercase;
   margin: 0;
   padding: 0.5rem;
@@ -122,20 +162,32 @@ h1 {
 
 .player input {
   font: inherit;
-  font-size: 1rem;
+  font-size: 1.2rem;
   width: 10rem;
   border: none;
-  padding: 0.5rem;
+  padding: 0.8rem;
   animation: pulse-text 2s infinite;
-  background-color: #a68ce0;
+  background-color: #fff;
   text-align: center;
   text-transform: uppercase;
+}
+
+@keyframes pulse-text {
+  0% {
+    color: #3c0c3e;
+  }
+  50% {
+    color: #7e4281;
+  }
+  100% {
+    color: #3c0c3e;
+  }
 }
 
 .player-symbol {
   margin-left: 1rem;
   font-size: 1rem;
-  color: #e1dec7;
+  color: #56575b;
 }
 
 ol {
@@ -157,6 +209,18 @@ ol {
   font-size: 4rem;
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.7);
   animation: pulse-text-size 2s infinite ease-out;
+}
+
+@keyframes pulse-text-size {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 #game-board {
@@ -204,6 +268,21 @@ ol {
   animation: pop-in 0.5s cubic-bezier(0.68, -0.55, 0.65, 0.52) forwards;
 }
 
+/* Fancy animation for showing the "Game Over" element */
+@keyframes pop-in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 #game-over h2 {
   font-family: 'Caprasimo', cursive;
   font-size: 4rem;
@@ -240,10 +319,12 @@ ol {
 }
 
 #log {
-  max-width: 20rem;
+  max-width: 30rem;
+  background-color: #b39de2;
+  border-radius: 8px;
   color: #07003f;
   list-style: none;
-  margin: 2rem auto;
+  margin: 3rem auto;
   padding: 0;
   text-align: center;
 }
@@ -252,6 +333,17 @@ ol {
   border-radius: 4px;
   animation: slide-in-from-left 1s cubic-bezier(0.075, 0.82, 0.165, 1) forwards;
   margin: 0.75rem;
+}
+
+@keyframes slide-in-from-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-30%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 #log li.highlighted {
@@ -283,69 +375,4 @@ ol {
   color: #23221f;
   font: inherit;
   margin-top: 1.5rem;
-}
-
-@keyframes slide-in-from-left {
-  0% {
-    opacity: 0;
-    transform: translateX(-30%);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes pulse-text {
-  0% {
-    color: #3c0c3e;
-  }
-  50% {
-    color: #7e4281;
-  }
-  100% {
-    color: #3c0c3e;
-  }
-}
-
-@keyframes pulse-text-size {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    border-color: #a35af6;
-    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0.4);
-  }
-  50% {
-    border-color: #8431f8;
-    box-shadow: 0 0 0 0.5rem rgba(248, 165, 49, 0);
-  }
-  100% {
-    border-color: #a35af6;
-    box-shadow: 0 0 0 0 rgba(246, 227, 90, 0);
-  }
-}
-
-/* Fancy animation for showing the "Game Over" element */
-@keyframes pop-in {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  80% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-  }
 }
