@@ -287,7 +287,7 @@ ol {
   font-family: 'Caprasimo', cursive;
   font-size: 4rem;
   text-align: center;
-  color: #7a56fc;
+  color: #a68eff;
   margin: 0;
 }
 
@@ -302,8 +302,8 @@ ol {
   margin: 0 auto;
   font-size: 1.5rem;
   background: none;
-  border: 2px solid #7a56fc;
-  color: #7a56fc;
+  border: 2px solid #a68eff;
+  color: #a68eff;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   cursor: pointer;
